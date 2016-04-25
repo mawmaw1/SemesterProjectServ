@@ -1,0 +1,30 @@
+<h2>All users</h2>
+<table class="table table-striped">
+          <thead>
+              <tr>
+                  <th>
+                      Username
+                  </th>
+                  <th>
+                      Roles
+                  </th>
+                  <th>
+                      Action
+                  </th>
+                 
+              </tr>
+          </thead>
+          <tbody>
+              <tr ng-repeat="d in ctrl.data">
+                  <td>
+                      {{d.username}}
+                  </td>
+                  <td >
+                      {{d.roles | roleFilter}}
+                  </td>
+                  <td>
+                      <a href="#/view3" ng-click="ctrl.deleteUser(d.username)">delete</a>
+                  </td>
+              </tr>
+          </tbody>
+      </table>
