@@ -13,9 +13,11 @@ app.config(['$routeProvider', function ($routeProvider) {
 app.controller('View2Ctrl', ['GetFactory', '$http', function (GetFactory, $http) {
         var self = this;
         
+        
+        
         self.opt =[
-            {value: 'CPH', label: 'CPH'},
-            {value: 'STN', label: 'STN'}
+            'CPH',
+            'STN'
         ];
         
         self.getCompany = function (input, type) {
