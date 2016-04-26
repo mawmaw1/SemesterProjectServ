@@ -39,7 +39,6 @@ public class Admin {
         for (entity.User u : users) {
             JsonObject p1 = new JsonObject();
             p1.addProperty("username", u.getUserName());
-
             JsonArray roles = new JsonArray();
             List<entity.Role> r1 = u.getRoles();
             for (entity.Role r : r1) {
@@ -53,6 +52,7 @@ public class Admin {
         }
         return gson.toJson(result);
     }
+
 
     @DELETE
     @Path("/user/{username}")

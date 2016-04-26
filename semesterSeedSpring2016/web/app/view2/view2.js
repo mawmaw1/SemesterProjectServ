@@ -12,6 +12,9 @@ app.config(['$routeProvider', function ($routeProvider) {
 
 app.controller('View2Ctrl', ['GetFactory', '$http', function (GetFactory, $http) {
         var self = this;
+        
+        
+        
         self.getCompany = function (input, type) {
             if (type === "cvr") {
                 self.getCvr(input);
@@ -24,10 +27,16 @@ app.controller('View2Ctrl', ['GetFactory', '$http', function (GetFactory, $http)
             }
 
         };
-        self.getCvr = (function (cvr) {
-            GetFactory.getCvr(cvr).then(function successCallback(res) {
+        self.getAllFlightsFromDate = (function (persons, date, from) {
+            var fixedDate = new Date(date);
+
+            var jsonDate = fixedDate.toISOString();
+
+            
+
+            GetFactory.getAllFlightsFromDate(persons, jsonDate, from).then(function successCallback(res) {
                 self.data = res.data;
-                console.log(self.data);
+
             }, function errorCallback(res) {
                 self.error = res.status + ": " + res.data.statusText;
             });
@@ -56,34 +65,20 @@ app.controller('View2Ctrl', ['GetFactory', '$http', function (GetFactory, $http)
 
 app.factory('GetFactory', ['$http', function ($http) {
         var self = this;
-        var getCvr = (function (cvr) {
-            return getCvr =
-                    $http({
-                        method: 'GET',
-                        url: 'https://cvrapi.dk/api?vat=' + cvr + '&country=dk',
-                        skipAuthorization: true
-                    });
-        });
-        var getName = (function (name) {
-            return getName =
-                    $http({
-                        method: 'GET',
-                        url: 'https://cvrapi.dk/api?name=' + name + '&country=dk',
-                        skipAuthorization: true
-                    });
-        });
-        var getPhone = (function (phone) {
+
+        var getAllFlightsFromDate = (function (persons, date, from) {
             return getPhone =
                     $http({
                         method: 'GET',
-                        url: 'https://cvrapi.dk/api?phone=' + phone + '&country=dk',
-                        skipAuthorization: true
+                        url: 'http://localhost:8080/SemesterProjectServer/api/data/' + from + '/' + date + '/' + persons
+
+
+
                     });
         });
         return {
-            getName: getName,
-            getPhone: getPhone,
-            getCvr: getCvr
+            getAllFlightsFromDate: getAllFlightsFromDate
+
         };
 
     }]);

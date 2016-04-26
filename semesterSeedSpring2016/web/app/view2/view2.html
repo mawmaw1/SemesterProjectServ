@@ -1,65 +1,77 @@
 <div>
-    <input type="text" placeholder="Search" ng-model="ctrl.inputType" class="form-control" style="width: 25%; display: inline-block;">
+    <input type="text" placeholder="Number of seats" ng-model="ctrl.inputType" class="form-control" style="width: 25%; display: inline-block;">
+
     <select class="form-control" name="singleSelect" ng-model="ctrl.data.singleSelect" style="display: inline-block; width: 10%;">
-        <option value="cvr">CVR</option>
-        <option value="name">Name</option>
-        <option value="phone">Phone</option>
-    </select><br>
+        <option value="CPH">CPH</option>
+        <option value="STN">STN</option>
+    </select>
+    <br>
+    <input type="date" ng-model="ctrl.inputDate">
+
+    <button ng-click="ctrl.getAllFlightsFromDate(ctrl.inputType, ctrl.inputDate, ctrl.data.singleSelect);
+                showme = true" class="btn btn-default">Tryk her</button>
 
 
-    <button ng-click="ctrl.getCompany(ctrl.inputType, ctrl.data.singleSelect); showme=true" class="btn btn-default">Tryk her</button>
+    <!--    <div>
+            <table class="table table-striped" ng-show="showme" style="background: #b3cccc;">
+                <thead>
+                    <tr>
+                        <th>CVR-number</th>
+    
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ctrl.data.airline}}</td>
+    
+                        <td>Aktiv</td>
+                    </tr>
+                </tbody>
+            </table>-->
 
-    <h2>{{ctrl.data.name}}</h2>
-    <div>
-        <table class="table table-striped" ng-show="showme" style="background: #b3cccc;">
-            <thead>
-                <tr>
-                    <th>CVR-number</th>
-                    <th>Address</th>
-                    <th>Zip+city</th>
-                    <th>Start date</th>
-                    <th>Employees</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>{{ctrl.data.vat}}</td>
-                    <td>{{ctrl.data.address}}</td>
-                    <td>{{ctrl.data.zipcode}}, {{ctrl.data.city}}</td>
-                    <td>{{ctrl.data.startdate}}</td>
-                    <td>{{ctrl.data.employees}}</td>
-                    <td>Aktiv</td>
-                </tr>
-            </tbody>
-        </table>
-        <hr style="background: #b3cccc; margin-bottom: 50px; margin-top: 20px; height: 7px;">
-        <uib-accordion ng-repeat="d in ctrl.data.productionunits">
-            <uib-accordion-group heading="{{d.name}}, {{d.address}}" style="margin: 1px; background: #e0ebeb;">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Address</th>
-                            <th>Zip code</th>
-                            <th>City</th>
-                            <th>Phone</th>
-                            <th>Email</th>
-                        </tr>  
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>{{d.address}}</td>
-                            <td>{{d.zipcode}}</td>
-                            <td>{{d.city}}</td>
-                            <td>{{d.phone}}</td>
-                            <td>{{d.email}}</td>
+    <hr style="background: #b3cccc; margin-bottom: 50px; margin-top: 20px; height: 7px;">
+    <uib-accordion ng-repeat="d in ctrl.data" ng-show="showme">
+        <uib-accordion-group heading="{{d.airline}}" style="margin: 1px; background: #e0ebeb;">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>flightID</th>
+                        <th>numberOfSeats</th>
+                        <th>date</th>
+                        <th>totalPrice</th>
+                        <th>travelTime</th>
+                        <th>origin</th>
+                        <th>destination</th>
+                        <th>flightNumber</th>
 
-                        </tr>
-                    </tbody>
-                </table>
 
-            </uib-accordion-group>
-        </uib-accordion>
-        
-    </div>
+
+
+
+                    </tr>  
+                </thead>
+                <tbody>
+                    <tr ng-repeat="f in d.flights">
+                        <td>{{f.flightID}}</td>
+                        <td>{{f.numberOfSeats}}</td>
+                        <td>{{f.date}}</td>
+                        <td>{{f.totalPrice}}</td>
+                        <td>{{f.traveltime}}</td>
+                        <td>{{f.origin}}</td>
+                        <td>{{f.destination}}</td>
+                        <td>{{f.flightNumber}}</td>
+
+
+
+
+
+
+
+                    </tr>
+                </tbody>
+            </table>
+
+        </uib-accordion-group>
+    </uib-accordion>
+
 </div>
