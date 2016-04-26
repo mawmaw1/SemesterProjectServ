@@ -28,7 +28,7 @@ public class AirlineConnector {
     private static String[] hostList = {"http://angularairline-plaul.rhcloud.com/api/flightinfo/", "http://angularairline-plaul.rhcloud.com/api/flightinfo/"
     };
 
-    public List<Future<String>> ConnectToAirlines(String airport, String date, int passengers) throws IOException, InterruptedException, ExecutionException {
+    public List<Future<String>> ConnectToAirlinesFromDatePersons(String airport, String date, int passengers) throws IOException, InterruptedException, ExecutionException {
 
         List<Future<String>> list = new ArrayList<>();
 
@@ -42,6 +42,30 @@ public class AirlineConnector {
                 @Override
                 public String call() throws Exception {
                     return readUrl(url + airport + "/" + date + "/" + passengers);
+                }
+            };
+            list.add(executor.submit(task));
+
+        }
+
+        executor.shutdown();
+
+        return list;
+    }
+    public List<Future<String>> ConnectToAirlinesFromToDatePersons(String from, String to, String date, int passengers) throws IOException, InterruptedException, ExecutionException {
+
+        List<Future<String>> list = new ArrayList<>();
+
+        ExecutorService executor = Executors.newFixedThreadPool(10);
+
+        for (int i = 0; i < hostList.length; i++) {
+
+            final String url = hostList[i];
+
+            Callable<String> task = new Callable<String>() {
+                @Override
+                public String call() throws Exception {
+                    return readUrl(url + from + "/" + to + "/" + date + "/" + passengers);
                 }
             };
             list.add(executor.submit(task));
