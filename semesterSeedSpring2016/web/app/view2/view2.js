@@ -26,10 +26,10 @@ app.controller('View2Ctrl', ['GetFactory', '$http', function (GetFactory, $http)
                 var fixedDate = new Date(date);
 
                 var jsonDate = fixedDate.toISOString();
-
+                self.showme = true;
                 if (to === undefined) {
 
-
+                    
                     GetFactory.getAllFlightsFromDate(from, to, jsonDate, persons).then(function successCallback(res) {
                         self.data = res.data;
 
