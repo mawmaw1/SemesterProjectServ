@@ -1,9 +1,9 @@
 <div>
     <input type="text" placeholder="Number of seats" ng-model="ctrl.inputType" class="form-control" style="width: 25%; display: inline-block;">
 
-    <select class="form-control" name="singleSelect" ng-model="ctrl.data.singleSelect" style="display: inline-block; width: 10%;">
-        <option value="CPH">CPH</option>
-        <option value="STN">STN</option>
+    <select class="form-control" ng-model="ctrl.data.from" ng-options="option.label for option in ctrl.opt" style="display: inline-block; width: 15%;">
+        <option value="" disabled="">Select Origin</option>
+<!--        <option value="STN">STN</option>-->
     </select>
     <br>
     <input type="date" ng-model="ctrl.inputDate">
