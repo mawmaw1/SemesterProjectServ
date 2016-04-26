@@ -1,19 +1,19 @@
 <div>
-    <input type="text" placeholder="Number of seats" ng-model="ctrl.persons" class="form-control" style="width: 25%; display: inline-block;">
+    <input type="text" placeholder="Number of passengers" ng-model="ctrl.persons" class="form-control" style="width: 15%; display: inline-block;">
 
-    <select class="form-control" ng-model="ctrl.data.from" ng-options="option.label for option in ctrl.opt" style="display: inline-block; width: 15%;">
+    <select class="form-control" ng-model="ctrl.data.from" ng-options="option for option in ctrl.opt" style="display: inline-block; width: 15%;">
         <option value="" disabled="">Select Origin</option>
 <!--        <option value="STN">STN</option>-->
     </select>
-    <br>
-        <select class="form-control" name="singleSelect" ng-model="ctrl.data.to" style="display: inline-block; width: 10%;">
-        <option value="CPH">CPH</option>
-        <option value="STN">STN</option>
+
+        <select class="form-control" name="singleSelect" ng-model="ctrl.data.to" ng-options="option for option in ctrl.opt" style="display: inline-block; width: 15%;">
+        <option value="" disabled="">Select Destination</option>
     </select>
-    <input type="date" ng-model="ctrl.inputDate">
+
+    <input type="date" ng-model="ctrl.inputDate" class="form-control" style="display: inline-block; width: 15%;">
 
     <button ng-click="ctrl.getAllFlightsFromDate(ctrl.data.from, ctrl.data.to, ctrl.inputDate, ctrl.persons);
-                showme = true" class="btn btn-default">Tryk her</button>
+                showme = true" class="form-control" style="display: inline-block; width: 15%;">Tryk her</button>
 
 
     <!--    <div>

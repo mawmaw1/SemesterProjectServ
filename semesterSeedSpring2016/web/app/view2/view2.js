@@ -12,28 +12,20 @@ app.config(['$routeProvider', function ($routeProvider) {
 
 app.controller('View2Ctrl', ['GetFactory', '$http', function (GetFactory, $http) {
         var self = this;
-        
-        self.opt =[
-            {value: 'CPH', label: 'CPH'},
-            {value: 'STN', label: 'STN'}
+
+        self.opt = [
+            'CPH',
+            'STN'
         ];
-        
-        self.getCompany = function (input, type) {
-            if (type === "cvr") {
-                self.getCvr(input);
-            }
-            if (type === "name") {
-                self.getName(input);
-            }
-            if (type === "phone") {
-                self.getPhone(input);
-            }
+
 
         self.getAllFlightsFromDate = (function (from, to, date, persons) {
-            var fixedDate = new Date(date);
 
-            var jsonDate = fixedDate.toISOString();
-            if (to !== from) {
+
+            if (to !== from && from !== undefined) {
+                var fixedDate = new Date(date);
+
+                var jsonDate = fixedDate.toISOString();
 
                 if (to === undefined) {
 
@@ -53,7 +45,7 @@ app.controller('View2Ctrl', ['GetFactory', '$http', function (GetFactory, $http)
                     });
                 }
             } else {
-                alert("You have chosen the same airport for Origin and Destination");
+                alert("You are dumb");
             }
         });
 
