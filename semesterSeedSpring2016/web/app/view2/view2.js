@@ -12,52 +12,35 @@ app.config(['$routeProvider', function ($routeProvider) {
 
 app.controller('View2Ctrl', ['GetFactory', '$http', function (GetFactory, $http) {
         var self = this;
-        
-        
-        
-        self.getCompany = function (input, type) {
-            if (type === "cvr") {
-                self.getCvr(input);
-            }
-            if (type === "name") {
-                self.getName(input);
-            }
-            if (type === "phone") {
-                self.getPhone(input);
-            }
 
-        };
-        self.getAllFlightsFromDate = (function (persons, date, from) {
+        self.getAllFlightsFromDate = (function (from, to, date, persons) {
             var fixedDate = new Date(date);
 
             var jsonDate = fixedDate.toISOString();
+            if (to !== from) {
 
-            
+                if (to === undefined) {
 
-            GetFactory.getAllFlightsFromDate(persons, jsonDate, from).then(function successCallback(res) {
-                self.data = res.data;
 
-            }, function errorCallback(res) {
-                self.error = res.status + ": " + res.data.statusText;
-            });
+                    GetFactory.getAllFlightsFromDate(from, to, jsonDate, persons).then(function successCallback(res) {
+                        self.data = res.data;
+
+                    }, function errorCallback(res) {
+                        self.error = res.status + ": " + res.data.statusText;
+                    });
+                } else {
+                    GetFactory.getAllFlightsFromToDate(from, to, jsonDate, persons).then(function successCallback(res) {
+                        self.data = res.data;
+
+                    }, function errorCallback(res) {
+                        self.error = res.status + ": " + res.data.statusText;
+                    });
+                }
+            } else {
+                alert("You have chosen the same airport for Origin and Destination");
+            }
         });
 
-        self.getName = (function (name) {
-            GetFactory.getName(name).then(function successCallback(res) {
-                self.data = res.data;
-                console.log(self.data);
-            }, function errorCallback(res) {
-                self.error = res.status + ": " + res.data.statusText;
-            });
-        });
-        self.getPhone = (function (phone) {
-            GetFactory.getPhone(phone).then(function successCallback(res) {
-                self.data = res.data;
-                console.log(self.data);
-            }, function errorCallback(res) {
-                self.error = res.status + ": " + res.data.statusText;
-            });
-        });
 
 
 
@@ -66,18 +49,25 @@ app.controller('View2Ctrl', ['GetFactory', '$http', function (GetFactory, $http)
 app.factory('GetFactory', ['$http', function ($http) {
         var self = this;
 
-        var getAllFlightsFromDate = (function (persons, date, from) {
-            return getPhone =
+        var getAllFlightsFromDate = (function (from, to, date, persons) {
+            return getAllFlightsFromDate =
                     $http({
                         method: 'GET',
                         url: 'http://localhost:8080/SemesterProjectServer/api/data/' + from + '/' + date + '/' + persons
 
-
+                    });
+        });
+        var getAllFlightsFromToDate = (function (from, to, date, persons) {
+            return getAllFlightsFromToDate =
+                    $http({
+                        method: 'GET',
+                        url: 'http://localhost:8080/SemesterProjectServer/api/data/' + from + '/' + to + '/' + date + '/' + persons
 
                     });
         });
         return {
-            getAllFlightsFromDate: getAllFlightsFromDate
+            getAllFlightsFromDate: getAllFlightsFromDate,
+            getAllFlightsFromToDate: getAllFlightsFromToDate
 
         };
 
