@@ -41,7 +41,7 @@
                     <tr>
                         <th>flightID</th>
                         <th>numberOfSeats</th>
-                        <th>date</th>
+                        <th>date (Local time in Denmark)</th>
                         <th>totalPrice</th>
                         <th>travelTime</th>
                         <th>origin</th>
@@ -58,7 +58,7 @@
                     <tr ng-repeat="f in d.flights">
                         <td>{{f.flightID}}</td>
                         <td>{{f.numberOfSeats}}</td>
-                        <td>{{f.date}}</td>
+                        <td>{{f.date | date : 'yyyy-MM-dd HH:mm'}}</td>
                         <td>{{f.totalPrice}}</td>
                         <td>{{f.traveltime}}</td>
                         <td>{{f.origin}}</td>

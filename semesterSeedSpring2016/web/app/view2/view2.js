@@ -15,29 +15,39 @@ app.controller('View2Ctrl', ['GetFactory', '$http', function (GetFactory, $http)
 
         self.opt = [
             'CPH',
-            'STN'
+            'STN',
+            'SXF',
+            'CDG',
+            'BCN'
         ];
 
 
         self.getAllFlightsFromDate = (function (from, to, date, persons) {
 
-
+            self.showme = false;
             if (to !== from && from !== undefined) {
-                var fixedDate = new Date(date);
 
-                var jsonDate = fixedDate.toISOString();
-                self.showme = true;
+                date.setHours(date.getHours() - date.getTimezoneOffset() / 60);
+
+                var jsonDate = date.toISOString();
+
                 if (to === undefined) {
 
-                    
-                    GetFactory.getAllFlightsFromDate(from, to, jsonDate, persons).then(function successCallback(res) {
-                        self.data = res.data;
 
+                    GetFactory.getAllFlightsFromDate(from, to, jsonDate, persons).then(function successCallback(res) {
+                        self.showme = true;
+                        self.data = [];
+                        for(var i=0;i<res.data.length;i++){
+                            if(res.data[i].error === undefined){
+                                self.data.push(res.data[i]);
+                            }
+                        }
                     }, function errorCallback(res) {
                         self.error = res.status + ": " + res.data.statusText;
                     });
                 } else {
                     GetFactory.getAllFlightsFromToDate(from, to, jsonDate, persons).then(function successCallback(res) {
+                        self.showme = true;
                         self.data = res.data;
 
                     }, function errorCallback(res) {
