@@ -28,10 +28,10 @@ public class Tester {
 
         for (Future<String> list1 : list) {
 
-//            System.out.println(list1.get());
+   //         System.out.println(list1.get());
             JsonObject jsonObject = (new JsonParser()).parse(list1.get()).getAsJsonObject();
             System.out.println(jsonObject);
-            System.out.println("NEW");
+          System.out.println("NEW");
         }
 
     }

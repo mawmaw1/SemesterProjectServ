@@ -62,14 +62,28 @@ public class Data {
 
         JsonArray result = new JsonArray();
         List<Future<String>> list = ac.ConnectToAirlinesFromDatePersons(airport, date, persons);
-
+JsonObject errorTest2 = (new JsonParser()).parse("{\n" +
+"  \"error\": {\n" +
+"    \"code\": 500,\n" +
+"    \"message\": \"Flight is sold out, or not enough available tickets.\"\n" +
+"  }\n" +
+"}").getAsJsonObject();
+        result.add(errorTest2);
         for (Future<String> list1 : list) {
-
+            
+            
             JsonObject jsonObject = (new JsonParser()).parse(list1.get()).getAsJsonObject();
+            
             result.add(jsonObject);
 
         }
-
+        JsonObject errorTest = (new JsonParser()).parse("{\n" +
+"  \"error\": {\n" +
+"    \"code\": 500,\n" +
+"    \"message\": \"Flight is sold out, or not enough available tickets.\"\n" +
+"  }\n" +
+"}").getAsJsonObject();
+        result.add(errorTest);
         return gson.toJson(result);
     }
 
@@ -88,6 +102,7 @@ public class Data {
         for (Future<String> list1 : list) {
             
             JsonObject jsonObject = (new JsonParser()).parse(list1.get()).getAsJsonObject();
+            
             result.add(jsonObject);
             
         }
