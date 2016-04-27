@@ -89,7 +89,7 @@ public class Data {
             
             JsonObject jsonObject = (new JsonParser()).parse(list1.get()).getAsJsonObject();
             result.add(jsonObject);
-
+            
         }
 
         return gson.toJson(result);
