@@ -29,6 +29,8 @@ public class ApplicationConfig extends Application {
      * If required, comment out calling this method in getClasses().
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
+        resources.add(httpErrors.GenericExceptionMapper1.class);
+        resources.add(httpErrors.SoldOutException.class);
         resources.add(rest.Data.class);
     }
     

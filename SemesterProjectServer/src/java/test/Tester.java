@@ -24,7 +24,7 @@ public class Tester {
     public static void main(String[] args) throws IOException, InterruptedException, ExecutionException {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         AirlineConnector ac = new AirlineConnector();
-        List<Future<String>> list = ac.ConnectToAirlines("CPH", "2016-04-25T19:00:00.000Z", 2);
+        List<Future<String>> list = ac.ConnectToAirlinesFromToDatePersons("CPH","STN", "2016-04-25T19:00:00.000Z", 2);
 
         for (Future<String> list1 : list) {
 

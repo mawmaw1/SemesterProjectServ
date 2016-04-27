@@ -61,16 +61,37 @@ public class Data {
             @PathParam("persons") int persons) throws InterruptedException, ExecutionException, IOException {
 
         JsonArray result = new JsonArray();
-        List<Future<String>> list = ac.ConnectToAirlines(airport, date, persons);
-       
+        List<Future<String>> list = ac.ConnectToAirlinesFromDatePersons(airport, date, persons);
+
+        for (Future<String> list1 : list) {
+
+            JsonObject jsonObject = (new JsonParser()).parse(list1.get()).getAsJsonObject();
+            result.add(jsonObject);
+
+        }
+
+        return gson.toJson(result);
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("{from}/{to}/{date}/{persons}")
+    public String getAllFlightsFromToDate(
+            @PathParam("from") String from,
+            @PathParam("to") String to,
+            @PathParam("date") String date,
+            @PathParam("persons") int persons) throws InterruptedException, ExecutionException, IOException {
+
+        JsonArray result = new JsonArray();
+        List<Future<String>> list = ac.ConnectToAirlinesFromToDatePersons(from,to,date, persons);
+
         for (Future<String> list1 : list) {
             
             JsonObject jsonObject = (new JsonParser()).parse(list1.get()).getAsJsonObject();
             result.add(jsonObject);
             
         }
-        
-        
+
         return gson.toJson(result);
     }
 
