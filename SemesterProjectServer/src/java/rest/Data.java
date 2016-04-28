@@ -35,6 +35,8 @@ public class Data {
 
     AirlineConnector ac = new AirlineConnector();
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    JsonResponseChecker jrc = new JsonResponseChecker();
+    
     @Context
     private UriInfo context;
 
@@ -62,27 +64,29 @@ public class Data {
 
         JsonArray result = new JsonArray();
         List<Future<String>> list = ac.ConnectToAirlinesFromDatePersons(airport, date, persons);
-JsonObject errorTest2 = (new JsonParser()).parse("{\n" +
-"  \"error\": {\n" +
-"    \"code\": 500,\n" +
-"    \"message\": \"Flight is sold out, or not enough available tickets.\"\n" +
-"  }\n" +
-"}").getAsJsonObject();
+        JsonObject errorTest2 = (new JsonParser()).parse("{\n"
+                + "  \"error\": {\n"
+                + "    \"code\": 500,\n"
+                + "    \"message\": \"Flight is sold out, or not enough available tickets.\"\n"
+                + "  }\n"
+                + "}").getAsJsonObject();
         result.add(errorTest2);
         for (Future<String> list1 : list) {
-            
-            
+
             JsonObject jsonObject = (new JsonParser()).parse(list1.get()).getAsJsonObject();
             
-            result.add(jsonObject);
+            //result.add(jsonObject);
+            if (jrc.checkJson(jsonObject) == true) {
+                result.add(jsonObject);
+            }
 
         }
-        JsonObject errorTest = (new JsonParser()).parse("{\n" +
-"  \"error\": {\n" +
-"    \"code\": 500,\n" +
-"    \"message\": \"Flight is sold out, or not enough available tickets.\"\n" +
-"  }\n" +
-"}").getAsJsonObject();
+        JsonObject errorTest = (new JsonParser()).parse("{\n"
+                + "  \"error\": {\n"
+                + "    \"code\": 500,\n"
+                + "    \"message\": \"Flight is sold out, or not enough available tickets.\"\n"
+                + "  }\n"
+                + "}").getAsJsonObject();
         result.add(errorTest);
         return gson.toJson(result);
     }
@@ -97,14 +101,13 @@ JsonObject errorTest2 = (new JsonParser()).parse("{\n" +
             @PathParam("persons") int persons) throws InterruptedException, ExecutionException, IOException {
 
         JsonArray result = new JsonArray();
-        List<Future<String>> list = ac.ConnectToAirlinesFromToDatePersons(from,to,date, persons);
+        List<Future<String>> list = ac.ConnectToAirlinesFromToDatePersons(from, to, date, persons);
 
         for (Future<String> list1 : list) {
-            
+
             JsonObject jsonObject = (new JsonParser()).parse(list1.get()).getAsJsonObject();
-            
             result.add(jsonObject);
-            
+
         }
 
         return gson.toJson(result);
