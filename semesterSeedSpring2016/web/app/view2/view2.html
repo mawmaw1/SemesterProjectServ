@@ -1,19 +1,67 @@
 <div>
-    <input type="text" placeholder="Number of passengers" ng-model="ctrl.persons" class="form-control" style="width: 15%; display: inline-block;">
+    <div class="inner divbox">
+        <span style="display: inline-block; width: 17%;">
+            <div class="inner-addon left-addon">
+                <i class="glyphicon glyphicon-user"></i>
+                <input type="text" placeholder="Number of passengers" ng-model="ctrl.persons" class="form-control">
+            </div>
+        </span>
 
-    <select class="form-control" ng-model="ctrl.data.from" ng-options="option for option in ctrl.opt" style="display: inline-block; width: 15%;">
-        <option value="" disabled="">Select Origin</option>
-<!--        <option value="STN">STN</option>-->
-    </select>
+        <span style="display: inline-block; width: 15%;">
+            <select class="form-control" ng-model="ctrl.data.from" ng-options="option for option in ctrl.opt">
+                <option value="" disabled="">Select Origin</option>
+                <!--        <option value="STN">STN</option>-->
+            </select>
+        </span>
 
-        <select class="form-control" name="singleSelect" ng-model="ctrl.data.to" ng-options="option for option in ctrl.opt" style="display: inline-block; width: 15%;">
-        <option value="" disabled="">Select Destination</option>
-    </select>
+        <span style="display: inline-block; width: 15%;">
+            <select class="form-control" name="singleSelect" ng-model="ctrl.data.to" ng-options="option for option in ctrl.opt">
+                <option value="" disabled="">Select Destination</option>
+            </select>
+        </span>
 
-    <input type="date" ng-model="ctrl.inputDate" class="form-control" style="display: inline-block; width: 15%;">
 
-    <button ng-click="ctrl.getAllFlightsFromDate(ctrl.data.from, ctrl.data.to, ctrl.inputDate, ctrl.persons);
-                showme = true" class="form-control" style="display: inline-block; width: 15%;">Tryk her</button>
+        <script>
+                    $(function () {
+                        $("#datepicker-8").datepicker({
+                            prevText: "click for previous months",
+                            nextText: "click for next months",
+                            showOtherMonths: true,
+                            selectOtherMonths: false,
+                            dateFormat: "dd-mm-yy"
+                        });
+                        $("#datepicker-9").datepicker({
+                            prevText: "click for previous months",
+                            nextText: "click for next months",
+                            showOtherMonths: true,
+                            selectOtherMonths: true,
+                            dateFormat: "dd-mm-yy"
+                        });
+                    });
+        </script>
+        <span style="display: inline-block; width: 12%;">
+            <div class="inner-addon left-addon">
+                <i class="glyphicon glyphicon-calendar"></i>
+                <input id="datepicker-8" type="text" ng-model="ctrl.inputDate" class="form-control" placeholder="Start date">
+            </div>
+        </span>
+
+        <span style="display: inline-block; width: 12%;">
+            <div class="inner-addon left-addon">
+                <i class="glyphicon glyphicon-calendar"></i>
+                <input id="datepicker-9" type="text" ng-model="ctrl.inputDate" class="form-control" placeholder="End date">
+            </div>
+        </span>
+
+
+
+        <span style="display: inline-block; width: 17%;">
+            <button ng-click="ctrl.getAllFlightsFromDate(ctrl.data.from, ctrl.data.to, ctrl.inputDate, ctrl.persons)" class="form-control blubtn">Tryk her</button>
+        </span>
+        
+
+    </div>
+
 
 
     <!--    <div>
@@ -33,7 +81,6 @@
                 </tbody>
             </table>-->
 
-    <hr style="background: #b3cccc; margin-bottom: 50px; margin-top: 20px; height: 7px;">
     <uib-accordion ng-repeat="d in ctrl.data" ng-show="showme">
         <uib-accordion-group heading="{{d.airline}}" style="margin: 1px; background: #e0ebeb;">
             <table class="table">
