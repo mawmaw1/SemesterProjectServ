@@ -28,7 +28,7 @@
                             nextText: "click for next months",
                             showOtherMonths: true,
                             selectOtherMonths: false,
-                            dateFormat: "dd-mm-yy"
+                            //dateFormat: "yy-mm-dd"
                         });
                         $("#datepicker-9").datepicker({
                             prevText: "click for previous months",
@@ -42,14 +42,14 @@
         <span style="display: inline-block; width: 12%;">
             <div class="inner-addon left-addon">
                 <i class="glyphicon glyphicon-calendar"></i>
-                <input id="datepicker-8" type="text" ng-model="ctrl.inputDate" class="form-control" placeholder="Start date">
+                <input  type="date" ng-model="ctrl.inputDate" class="form-control" placeholder="Start date">
             </div>
         </span>
 
         <span style="display: inline-block; width: 12%;">
             <div class="inner-addon left-addon">
                 <i class="glyphicon glyphicon-calendar"></i>
-                <input id="datepicker-9" type="text" ng-model="ctrl.inputDate" class="form-control" placeholder="End date">
+                <input id="datepicker-9" type="text" ng-model="ctrl.inputDate2" class="form-control" placeholder="End date">
             </div>
         </span>
 
@@ -64,7 +64,7 @@
 
 
 
-    <!--    <div>
+<!--        <div>
             <table class="table table-striped" ng-show="showme" style="background: #b3cccc;">
                 <thead>
                     <tr>
@@ -76,12 +76,12 @@
                     <tr>
                         <td>{{ctrl.data.airline}}</td>
     
-                        <td>Aktiv</td>
+                       
                     </tr>
                 </tbody>
             </table>-->
 
-    <uib-accordion ng-repeat="d in ctrl.data" ng-show="showme">
+    <uib-accordion ng-repeat="d in ctrl.data" ng-show="ctrl.showme">
         <uib-accordion-group heading="{{d.airline}}" style="margin: 1px; background: #e0ebeb;">
             <table class="table">
                 <thead>

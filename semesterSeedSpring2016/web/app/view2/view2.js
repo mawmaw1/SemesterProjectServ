@@ -23,7 +23,7 @@ app.controller('View2Ctrl', ['GetFactory', '$http', function (GetFactory, $http)
 
 
         self.getAllFlightsFromDate = (function (from, to, date, persons) {
-
+       
             self.showme = false;
             if (to !== from && from !== undefined) {
 
@@ -71,7 +71,7 @@ app.factory('GetFactory', ['$http', function ($http) {
             return getAllFlightsFromDate =
                     $http({
                         method: 'GET',
-                        url: 'http://localhost:8080/SemesterProjectServer/api/data/' + from + '/' + date + '/' + persons
+                        url: 'api/data/' + from + '/' + date + '/' + persons
 
                     });
         });
@@ -79,7 +79,7 @@ app.factory('GetFactory', ['$http', function ($http) {
             return getAllFlightsFromToDate =
                     $http({
                         method: 'GET',
-                        url: 'http://localhost:8080/SemesterProjectServer/api/data/' + from + '/' + to + '/' + date + '/' + persons
+                        url: 'api/data/' + from + '/' + to + '/' + date + '/' + persons
 
                     });
         });
