@@ -40,6 +40,7 @@ public class Data {
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
     UserFacade fc = new UserFacade();
     AirlineConnector ac = new AirlineConnector();
+    JsonResponseChecker jrc = new JsonResponseChecker();
   
     @Context
     private UriInfo context;
@@ -72,7 +73,11 @@ public class Data {
             for (Future<String> list1 : list) {
 
                 JsonObject jsonObject = (new JsonParser()).parse(list1.get()).getAsJsonObject();
+                
+                //result.add(jsonObject);
+            if (jrc.checkJson(jsonObject) == true) {
                 result.add(jsonObject);
+            }
 
             }
         } catch (Exception e) {
@@ -98,7 +103,10 @@ public class Data {
 
             JsonObject jsonObject = (new JsonParser()).parse(list1.get()).getAsJsonObject();
 
-            result.add(jsonObject);
+            //result.add(jsonObject);
+            if (jrc.checkJson(jsonObject) == true) {
+                result.add(jsonObject);
+            }
 
         }
 
